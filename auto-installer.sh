@@ -8,8 +8,15 @@ fi
 # Ask for the domain name
 read -p "Please enter a working domain name that points to your server: " DOMAIN_NAME
 
-# Ask for the user's email address
-read -p "Please enter your email address (used only for certificates): " EMAIL_ADDRESS
+# Ask for the user's email address with basic validation
+while true; do
+    read -p "Please enter your email address (used only for the certificates): " EMAIL_ADDRESS
+    if [[ $EMAIL_ADDRESS =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
+        break
+    else
+        echo "Invalid email address. Please enter a valid email address."
+    fi
+done
 
 # Save the domain name and email address
 echo "DOMAIN_NAME=$DOMAIN_NAME" | sudo tee /tmp/user_data > /dev/null
@@ -117,10 +124,16 @@ sudo ln -s /snap/bin/certbot /usr/bin/certbot
 # Inform user about completion
 echo "Setup completed for $DOMAIN_NAME."
 echo "All the package have been successfully installed. Proceeding with certificate request."
-echo "This may need your input interaction in order to continue."
+
+# Confirm before running certbot
+read -p "Ready to request a certificate? (Y/N): " CERT_CONFIRM
+if [ "$CERT_CONFIRM" != "Y" ]; then
+    echo "Certificate request aborted. No changes have been made."
+    exit 1
+fi
 
 # Obtain the certificates.
-sudo certbot --nginx -d "$DOMAIN_NAME" --email "$EMAIL_ADDRESS" --agree-tos
+sudo certbot --nginx -d "$DOMAIN_NAME" --email "$EMAIL_ADDRESS" -m "$EMAIL_ADDRESS" --non-interactive --agree-tos
 
 echo "Completed the certificate request for $DOMAIN_NAME."
 echo "Proceeding with dhparam generator. May take a long time to complete. Don't interrupt it!"
