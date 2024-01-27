@@ -5,13 +5,13 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-# Ask for the domain name
-read -p "Please enter a working domain name that points to your server: " DOMAIN_NAME
+# Ask user to input their domain name
+read -r -p "Please enter a working domain name that points to your server: " DOMAIN_NAME
 
-# Ask for the user's email address
-read -p "Please enter your email address (used only for certificates): " EMAIL_ADDRESS
+# Ask for the user's email address for certbot later on
+read -r -p "Please enter your email address (used only for certificates): " EMAIL_ADDRESS
 
-# Save the domain name and email address
+# Temporary store domain name and email address
 echo "DOMAIN_NAME=$DOMAIN_NAME" | sudo tee /tmp/user_data > /dev/null
 echo "EMAIL_ADDRESS=$EMAIL_ADDRESS" | sudo tee -a /tmp/user_data > /dev/null
 
@@ -27,10 +27,11 @@ restore_sudoers() {
     sudo sed -i "/$USER ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
     echo "Restored original sudoers settings."
 }
+
 # Set up trap to call restore_sudoers on EXIT
 trap restore_sudoers EXIT
 
-# Install stuff for the next few steps
+# Update repositories and install apps we need for checking the IP's. Also perform general upgrade.
 sudo apt-get update -y 
 sudo apt-get install curl dnsutils wget unzip git jq -y
 sudo apt-get upgrade -y
@@ -51,14 +52,14 @@ echo "Local external IP: $LOCAL_EXTERNAL_IP"
 
 # Check if the user's external IP matches the resolved domain IP
 if [ "$USER_EXTERNAL_IP" != "$DOMAIN_IP" ]; then
-    read -p "Your external IP does not match the resolved domain IP. Do you want to continue? (Y/N): " CONTINUE
+    read -r -p "Your external IP does not match the resolved domain IP. Do you want to continue? (Y/N): " CONTINUE
     if [ "$CONTINUE" != "Y" ]; then
         echo "Aborting script. No changes have been made."
         exit 1
     fi
 fi
 
-# Install necessary packages
+# Install all the required packages for building the livestream nginx server. And also PHP.
 if sudo apt install -y nginx software-properties-common dpkg-dev make gcc automake build-essential python3 python3-pip zlib1g-dev libpcre3 libpcre3-dev libssl-dev libxslt1-dev libxml2-dev libgd-dev libgeoip-dev libgoogle-perftools-dev libperl-dev pkg-config autotools-dev gpac ffmpeg mediainfo mencoder lame libvorbisenc2 libvorbisfile3 libx264-dev libvo-aacenc-dev libmp3lame-dev libopus-dev libnginx-mod-rtmp php-common php-fpm php-gd php-mysql php-imap php-cli php-cgi php-curl php-intl php-pspell php-sqlite3 php-tidy php-xmlrpc php8.1-xml php-memcache php-imagick php-zip php-mbstring php-pear mcrypt imagemagick memcached; then
     echo "Package installation successful."
 else
@@ -78,10 +79,9 @@ sudo sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php/8.1/fpm/php.in
 sudo mkdir -p /mnt/livestream/{hls,keys,dash,rec} /var/www/web
 
 # Delete or empty existing nginx.conf
-[ -f /etc/nginx/nginx.conf ] && sudo rm /etc/nginx/nginx.conf || sudo touch /etc/nginx/nginx.conf
+[ -f /etc/nginx/nginx.conf ] && sudo rm /etc/nginx/nginx.conf
 
-# Copy template nginx.conf
-# Confirm if file copy was succesfull or not
+# Copy template nginx.conf. Confirm if file copy was succesfull or not
 if sudo cp "conf/nginx.conf" "/etc/nginx/nginx.conf"; then
     echo "File copied successfully."
 else
@@ -126,16 +126,23 @@ sudo ln -s /snap/bin/certbot /usr/bin/certbot
 # Inform user about completion
 echo "Setup completed for $DOMAIN_NAME."
 echo "All the package have been successfully installed. Proceeding with certificate request."
-echo "This may need your input interaction in order to continue."
 
 # Obtain the certificates.
-sudo certbot --nginx -d "$DOMAIN_NAME" --email "$EMAIL_ADDRESS" --agree-tos
+sudo certbot --nginx -d "$DOMAIN_NAME" --email "$EMAIL_ADDRESS" --agree-tos --noninteractive -m "$EMAIL_ADDRESS"
 
 echo "Completed the certificate request for $DOMAIN_NAME."
-echo "Proceeding with dhparam generator. May take a long time to complete. Don't interrupt it!"
+echo "Proceeding with dhparam generator. May take a very long time to complete. Don't interrupt it!"
 
 # Generate DH parameters
 sudo openssl dhparam -out /etc/nginx/ssl-dhparams.pem 4096
+
+# Check if ssl-dhparams.pem file was created
+if [ -f /etc/nginx/ssl-dhparams.pem ]; then
+    echo "DH parameters generated successfully."
+else
+    echo "Error: DH parameters could not be generated. Exiting."
+    exit 1
+fi
 
 # Remove the line added to visudo config to return to default behavior
 sudo sed -i "/$USER ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
