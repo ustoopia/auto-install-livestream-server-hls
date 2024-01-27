@@ -1,0 +1,75 @@
+server {
+	listen 80;
+	listen [::]:80;
+	root /var/www/web;
+	server_name YOUR.HOSTNAME.COM; # <<== THE SCRIPTS CHANGES THIS. 
+	index index.php index.html index.htm index.cgi index.pl index.xhtml standard_index.html;
+	location ~ /\. {
+			deny all;
+        }
+	location / {
+		try_files $uri $uri/ /index.php?$args;
+	}
+	location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+		include /etc/nginx/fastcgi_params;
+                fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            	fastcgi_intercept_errors on;
+	}
+	location /stat {
+        	rtmp_stat all;
+        	rtmp_stat_stylesheet stat.xsl;
+		add_header Refresh "8; $request_uri";		# Refreshes the stat page every 5 seconds.
+		# auth_basic "Members Only";			# Create a valid .htpasswd before uncommenting this.
+		# auth_basic_user_file /var/www/web/.htpasswd;	# Create a valid .htpasswd before uncommenting this.
+		}
+	location /stat.xsl {
+        	root /var/www/web;
+    		}
+	location /control {
+		rtmp_control all;
+		}
+	location /keys {
+		root /mnt/livestream;
+		autoindex off;
+		}
+	location /nginx_status {
+        	stub_status on;
+        	allow 127.0.0.1;
+        }
+	location /hls {
+		alias /mnt/livestream/hls;		# Points to where the video fragment files are located
+		autoindex on;				# Optional. Allow browsing of the video fragment files folder
+		expires -1;				# Cache related
+		add_header Cache-Control no-cache;	# Prevent caching of HLS fragments
+		add_header Access-Control-Allow-Origin *; # Allow remote web players to access our playlist
+		types {
+			application/vnd.apple.mpegurl m3u8;
+			text/html html;
+			video/mp2t ts;
+			}
+		if ($request_method = 'OPTIONS') {
+                	add_header 'Access-Control-Allow-Origin' '*';
+                	add_header 'Content-Length' 0;
+                	return 204;
+                	}
+		}
+	location /dash {
+		alias /mnt/livestream/dash;
+		autoindex on;
+		expires -1;
+		add_header Cache-Control no-cache;	# Prevent caching of HLS fragments
+		add_header Access-Control-Allow-Origin *; # Allow remote web player to access our playlist
+		types {
+			application/dash+xml mpd;
+			text/html html;
+			video/mp4 mp4;
+			}
+		if ($request_method = 'OPTIONS') {
+                	add_header 'Access-Control-Allow-Origin' '*';
+                	add_header 'Content-Length' 0;
+                	return 204;
+                }
+	}
+}
