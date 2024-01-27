@@ -5,15 +5,8 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-# Ask for the user's email address
-read -p "Please enter your email address (used only for certificates): " EMAIL_ADDRESS
-
 # Ask for the domain name
 read -p "Please enter a working domain name that points to your server: " DOMAIN_NAME
-
-# Save the domain name and email address
-echo "DOMAIN_NAME=$DOMAIN_NAME" | sudo tee /tmp/user_data > /dev/null
-echo "EMAIL_ADDRESS=$EMAIL_ADDRESS" | sudo tee -a /tmp/user_data > /dev/null
 
 # Set up sudo without password
 echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
@@ -48,6 +41,13 @@ if [ "$USER_EXTERNAL_IP" != "$DOMAIN_IP" ]; then
         exit 1
     fi
 fi
+
+# Ask for the user's email address
+read -p "Please enter your email address (used only for certificates): " EMAIL_ADDRESS
+
+# Save the domain name and email address
+echo "DOMAIN_NAME=$DOMAIN_NAME" | sudo tee /tmp/user_data > /dev/null
+echo "EMAIL_ADDRESS=$EMAIL_ADDRESS" | sudo tee -a /tmp/user_data > /dev/null
 
 # Install necessary packages
 if sudo apt install -y nginx software-properties-common dpkg-dev make gcc automake build-essential python3 python3-pip zlib1g-dev libpcre3 libpcre3-dev libssl-dev libxslt1-dev libxml2-dev libgd-dev libgeoip-dev libgoogle-perftools-dev libperl-dev pkg-config autotools-dev gpac ffmpeg mediainfo mencoder lame libvorbisenc2 libvorbisfile3 libx264-dev libvo-aacenc-dev libmp3lame-dev libopus-dev libnginx-mod-rtmp php-common php-fpm php-gd php-mysql php-imap php-cli php-cgi php-curl php-intl php-pspell php-sqlite3 php-tidy php-xmlrpc php8.1-xml php-memcache php-imagick php-zip php-mbstring php-pear mcrypt imagemagick memcached; then
@@ -120,7 +120,7 @@ echo "All the package have been successfully installed. Proceeding with certific
 echo "This may need your input interaction in order to continue."
 
 # Obtain the certificates.
-sudo certbot --nginx -d "$DOMAIN_NAME" --email "$EMAIL_ADDRESS"
+sudo certbot --nginx -d "$DOMAIN_NAME" --email "$EMAIL_ADDRESS" --agree-tos
 
 echo "Completed the certificate request for $DOMAIN_NAME."
 echo "Proceeding with dhparam generator. May take a long time to complete. Don't interrupt it!"
