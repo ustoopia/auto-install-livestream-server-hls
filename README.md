@@ -15,8 +15,6 @@ Requirements
 
 How to run the script
 =====================
-git clone https://github.com/ustoopia/auto-hls-livestream-server-installer \
-cd auto-hls-livestream-server-installer \
 sudo bash auto-installer.sh
 
 You will be prompted to input your e-mail address and your domain name. The script will take of everything else. When it requests the certificates it will require some interaction from you in order to continue. \
