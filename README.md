@@ -1,4 +1,4 @@
-# auto-hls-livestream-server-installer
+auto-hls-livestream-server-installer
 
 ![Alt text](https://i.imgur.com/ERG9hoj.png "header image")
 
