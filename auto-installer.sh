@@ -130,12 +130,12 @@ echo "Proceeding with dhparam generator. May take a very long time to complete. 
 sudo openssl dhparam -out /etc/nginx/ssl-dhparams.pem 4096
 
 # Check if ssl-dhparams.pem file was created
-if [ -f /etc/nginx/ssl-dhparams.pem ]; then
-    echo "DH parameters generated successfully."
-else
-    echo "Error: DH parameters could not be generated. Exiting."
-    exit 1
-fi
+#if [ -f /etc/nginx/ssl-dhparams.pem ]; then
+#    echo "DH parameters generated successfully."
+#else
+#    echo "Error: DH parameters could not be generated. Exiting."
+#    exit 1
+#fi
 
 # Add a line to visudo to restore original sudoers settings on EXIT
 echo "$USER ALL=(ALL) ALL" | sudo tee -a /etc/sudoers > /dev/null
