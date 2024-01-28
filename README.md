@@ -25,6 +25,8 @@ But this also works
 Download the zip file from the Github repository page. Unzip the file, and 
 open the folder it contains. Then simply enter: sudo bash auto-installer.sh
 
+In case the script runs in to a fatal error, you might want to run it again and create a log file. You can accomplish this by running the script like this: sudo bash your_script.sh 2>&1 | tee setup_log.txt
+
 On my personal website I posted an article that explains in detail how to get started with the live-stream server. Make sure you check it out before you decide to run this script. https://www.ustoopia.nl
 
 So far I haven't tried it on any other versions of Ubuntu except 22.04. Neither have I tried it on other operating systems. But I will do that in the future. The script is not smart enough to handle different environments, much like the person who created the script, so you're not going to be able to run this on Windows, Mac, or other Linux flavors. This mey change in at some point. Depending on when I get around to it.  
