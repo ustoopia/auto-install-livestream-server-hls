@@ -1,21 +1,35 @@
 AUTO-HLS-LIVESTREAM-SERVER-INSTALLER
 
-I've put together this simple bash script that takes care of installing all the building blocks that are used to build a livestream server. It also configures the server so that you'll have a working livestream server right out-of-the-box. Saving you a lot of time of manually having to perform a bunch of tasks. \
-I made sure that the script will run flawlessly when used on a clean install of Ubuntu (22.04). So far I've only tested it on Ubuntu 22.04, so I have no idea if it will work on other versions, or other operating systems. I plan to do some testing at one point, with the idea of eventually have this script work on different operating systems. But for now, while work is still in progress, Ubuntu 22.04 is good, and the scripts works great. \
-
-Two things that you will still have to do yourself, is first to make sure the machine you want to run it on is a Ubuntu 22.04.* . Preferably a fresh, brand new install of the operating system. Second thing is an important requirement, you will need to have a valid domain pointing to your server, and the server needs to be reachable from the internet using this domain name. In case you are on a home network, you'll need to open/forward two ports in your router to the server. Ports 80 and 443. This is so valid certificates can be requested and used to secure NginX and the HLS streams.
+I've put together this simple bash script that can be run on a clean Ubuntu 22.04 server, and once it stops it has transformed the server into a stable, robust live-stream server that works out-of-the-box.
 
 ![Alt text](https://i.imgur.com/ERG9hoj.png "header image")
+{apparently I'm better at sharing really useful script than I am at graphic banner design)
 
 Requirements
-============
+=-=-=-=-=-=-
 - A fresh install Ubuntu 22.04.*
 - A domain name pointing to your server.
 - Reachable from the internet (ports 80 & 443)
 
 How to run the script
-=====================
-sudo bash auto-installer.sh
+=-=-=-=-=-=-=-=-=-=-=
+  cd ~ \
+  git clone https://github.com/ustoopia/auto-install-livestream-server-hls \
+  cd auto-installer \
+  sudo bash auto-installer.sh
 
-You will be prompted to input your e-mail address and your domain name. The script will take of everything else. When it requests the certificates it will require some interaction from you in order to continue. \
-I am not a programmer, and not particulary good with code either. I used a little help of AI to put this script together. In case the script contains any lines that are wrong, less ideal, or dangerous, please let me know so I can learn from it. Any form of improvement of the script is of course always good. Personally I believe I did quite an OK job, for a person who can't even write code. 
+But this also works
+=-=-=-=-=-=-=-=-=-=
+Download the zip file from the Github repository page. Unzip the file, and 
+open the folder it contains. Then simply enter: sudo bash auto-installer.sh
+
+
+When starting the script, it asks you to enter a domain name and your email address. From that point onwards, no further interaction will be required from you. This script will save you at least two hours of doing tedious tasks you copy/paste from a random tutorial. You should run this script before doing anything else on a clean server. Just to avoid potential conflicts with other apps. I just now decided to simply say that a clean server is one of the two requirements for this script te be successfull. The second requirement is really important, and it is completely dependant on you to meet this requirement. YOU need to have a valid domain name pointing to your server, and the world needs to be able to reach your server from the internet in order to obtain certificates. In case you're behind a NAT router, at your home for example, you need to open/forward two ports in your firewall/router to your server. Ports 80 and 443. If the two requirements are both met, you're all good to go. Start the script, and use the extra time you now freed for yourself to go get a cup of coffee or take a walk outside. 
+
+On my personal website I posted an article that explains in detail how to get started with the live-stream server. Make sure you check it out before you decide to run this script. https://www.ustoopia.nl
+
+So far I haven't tried it on any other versions of Ubuntu except 22.04. Neither have I tried it on other operating systems. But I will do that in the future. The script is not smart enough to handle different environments, much like the person who created the script, so you're not going to be able to run this on Windows, Mac, or other Linux flavors. This mey change in at some point. Depending on when I get around to it.  
+
+I'm not a coder. And I used a bit of help from an AI to put this script together. In case the script contains any lines that are fundamentally wrong, or far from good, or perhaps dangerous in some way, please let me know, so I can learn. Any form of improvement of the script is of course always welcome. Personally I believe I did quite an OK job, as a person who has never done any serieus programming, and can't even write code from scratch. So I'll pet myself on the shoulders.
+
+
