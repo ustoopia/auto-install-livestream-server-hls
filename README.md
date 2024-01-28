@@ -6,7 +6,7 @@ I've put together this simple bash script that can be run on a clean Ubuntu 22.0
 {apparently I'm better at sharing really useful script than I am at graphic banner design)
 
 Requirements
-=-=-=-=-=-=-
+
 - A fresh install Ubuntu 22.04.*
 - A domain name pointing to your server.
 - Reachable from the internet (ports 80 & 443)
@@ -14,14 +14,14 @@ Requirements
 When starting the script, it asks you to enter a domain name and your email address. From that point onwards, no further interaction will be required from you. This script will save you at least two hours of doing tedious tasks you copy/paste from a random tutorial. You should run this script before doing anything else on a clean server. Just to avoid potential conflicts with other apps. I just now decided to simply say that a clean server is one of the two requirements for this script te be successfull. The second requirement is really important, and it is completely dependant on you to meet this requirement. YOU need to have a valid domain name pointing to your server, and the world needs to be able to reach your server from the internet in order to obtain certificates. In case you're behind a NAT router, at your home for example, you need to open/forward two ports in your firewall/router to your server. Ports 80 and 443. If the two requirements are both met, you're all good to go. Start the script, and use the extra time you now freed for yourself to go get a cup of coffee or take a walk outside. 
 
 How to run the script
-=-=-=-=-=-=-=-=-=-=-=
+
   cd ~ \
   git clone https://github.com/ustoopia/auto-install-livestream-server-hls \
   cd auto-installer \
   sudo bash auto-installer.sh
 
 But this also works
-=-=-=-=-=-=-=-=-=-=
+
 Download the zip file from the Github repository page. Unzip the file, and 
 open the folder it contains. Then simply enter: sudo bash auto-installer.sh
 
