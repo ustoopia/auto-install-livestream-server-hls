@@ -21,16 +21,6 @@ export DEBIAN_FRONTEND=noninteractive
 # Set up sudo without password
 echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
 
-# Trap function to restore sudoers settings
-restore_sudoers() {
-    # Remove the line added to visudo config to return to default behavior
-    sudo sed -i "/$USER ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
-    echo "Restored original sudoers settings."
-}
-
-# Set up trap to call restore_sudoers on EXIT
-trap restore_sudoers EXIT
-
 # Update repositories and install apps we need for checking the IP's. Also perform general upgrade.
 sudo apt-get update -y 
 sudo apt-get install curl dnsutils wget unzip git jq -y
@@ -123,6 +113,9 @@ sudo snap install core; sudo snap refresh core
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
+# Add a line to visudo to restore original sudoers settings on EXIT
+echo "$USER ALL=(ALL) ALL" | sudo tee -a /etc/sudoers > /dev/null
+
 # Inform user about completion
 echo "Setup completed for $DOMAIN_NAME."
 echo "All the package have been successfully installed. Proceeding with certificate request."
@@ -144,5 +137,5 @@ else
     exit 1
 fi
 
-# Remove the line added to visudo config to return to default behavior
-sudo sed -i "/$USER ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
+# Add a line to visudo to restore original sudoers settings on EXIT
+echo "$USER ALL=(ALL) ALL" | sudo tee -a /etc/sudoers > /dev/null
