@@ -56,8 +56,8 @@ if [ "$USER_EXTERNAL_IP" != "$DOMAIN_IP" ]; then
     fi
 fi
 
-# Install all the required packages that are the building blocks for the live-stream server. Also installing PHP.
-if sudo apt install -y nginx software-properties-common dpkg-dev make gcc automake build-essential python3 python3-pip zlib1g-dev libpcre3 libpcre3-dev libssl-dev libxslt1-dev libxml2-dev libgd-dev libgeoip-dev libgoogle-perftools-dev libperl-dev pkg-config autotools-dev gpac ffmpeg mediainfo mencoder lame libvorbisenc2 libvorbisfile3 libx264-dev libvo-aacenc-dev libmp3lame-dev libopus-dev libnginx-mod-rtmp php-common php-fpm php-gd php-mysql php-imap php-cli php-cgi php-curl php-intl php-pspell php-sqlite3 php-tidy php-xmlrpc php8.1-xml php-memcache php-imagick php-zip php-mbstring php-pear mcrypt imagemagick memcached; then
+# Install all the required packages that are the building blocks for the live-stream server. Also installing PHP allowing you to use php webpages
+if sudo apt install -y nginx software-properties-common dpkg-dev make gcc automake build-essential python3 python3-pip zlib1g-dev libpcre3 libpcre3-dev libssl-dev libxslt1-dev libxml2-dev libgd-dev libgeoip-dev libgoogle-perftools-dev libperl-dev pkg-config autotools-dev gpac ffmpeg mediainfo mencoder lame libvorbisenc2 libvorbisfile3 libx264-dev libvo-aacenc-dev libmp3lame-dev libopus-dev libnginx-mod-rtmp mcrypt imagemagick memcached php-common php-fpm php-gd php-cli php-cgi php-curl php-imagick php-zip php-mbstring php-pear; then
     echo "Package installation successful."
 else
     echo "Error: Could not install packages. Exiting."
@@ -104,10 +104,11 @@ if sudo git clone https://github.com/arut/nginx-rtmp-module /usr/src/nginx-rtmp-
 
     # Copy these files to the web root folder as well
     sudo cp "webfiles/index.html" "/var/www/web/index.html"
+    sudo cp "webfiles/clappr.html" "/var/www/web/clappr.html"
     sudo cp "webfiles/crossdomain.xml" "/var/www/web/crossdomain.xml"
     sudo cp "webfiles/robots.txt" "/var/www/web/robots.txt"
-    sudo cp "webfiles/poster.jpg" "/var/www/web/poster.jpg"
     sudo cp "webfiles/favicon.ico" "/var/www/web/favicon.ico"
+    sudo cp -r "webfiles/images/" "/var/www/web"
 else
     echo "Error: Could not copy all the required files. This really sucks!! Exiting."
     exit 1
