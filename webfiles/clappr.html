@@ -1,0 +1,110 @@
+<html>
+<head>
+<title>Clappr Live-Stream</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/my.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="480">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@clappr/stats-plugin@latest/dist/clappr-stats.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@joaopaulo.vieira/clappr-media-control-plugin@latest/dist/clappr-media-control-plugin.min.js">
+    </script>
+<style>
+body { 
+  background-color: #000000;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="player-container">
+ <!-- 16:9 aspect ratio -->
+        <div class="embed-responsive embed-responsive-16by9">
+          <div class="embed-responsive-item player"></div>
+        </div>
+
+<div id="player">
+
+	<script type="text/javascript">
+                    var playerElement = document.getElementById("player");
+                    let options = {
+                        parentId: "#player",
+                        source: "/hls/stream.m3u8",
+                        poster: "/images/poster.jpg",
+			autoPlay: true,
+			mute: true,
+                        exitFullscreenOnEnd: true,
+                        disableErrorScreen: true,
+                        width: "100%",
+                        height: "100%",
+                        plugins: [ClapprStats,
+                            MediaControl.MainPlugin,
+                            MediaControl.PlayPauseButtonPlugin,
+                            MediaControl.VolumePlugin,
+                            MediaControl.FullscreenButtonPlugin,
+                            MediaControl.SeekBarPlugin,
+                            MediaControl.TimeIndicatorPlugin,
+                            MediaControl.LevelSelectorPlugin],
+                        mediaControl: {
+                            disableBeforeVideoStarts: true,
+                            levelSelectorComponent: {
+                                layer: 1,
+                                section: 1,
+                                position: 2,
+                                separator: true,
+                                onlyShowWithClick: true,
+                                labels: {
+                                    0: 'low',
+                                    1: 'med',
+                                    2: 'high',
+                                },
+                                onLevelsAvailable: function (levels) {
+                                    return levels.reverse()
+                                },
+                            }
+                        },
+                        clapprStats: {
+                            // optional: time in miliseconds for each report.  Default: 5000.
+                            runEach: 5000,
+                            // optional: callback function. default: console.log
+                            onReport: (metrics) => {
+                                console.log(metrics)
+                            },
+                            // Fire PERCENTAGE_EVENT when video complete some percentage. default: []
+                            onCompletion: [10, 20, 55, 100],
+                            // optional: provide an img uri hosted at the same place as your farm
+                            // or near of it prefferable 1x1px, without caching. default: none
+                            uriToMeasureLatency: '/images/1x1.gif',
+                            // optional: provide assets uris hosted at the same place as your farm or near
+                            // of it prefferable in an uncompressible format, without caching. default: none
+                            urisToMeasureBandwidth: [
+                                {url: '/images/500kb.jpg', timeout: 3000},
+                                {url: '/images/1mb.jpg', timeout: 6000},
+                                {url: '/images/5mb.jpg', timeout: 12000}
+                            ],
+                            // optional: number of reports between two consecutive bandwidth tests. default: 10
+                            runBandwidthTestEvery: 10
+                        }
+                    };
+                    if (window.innerWidth <= 1000 && window.innerWidth > 500) {
+                        options.width = window.innerWidth - 50;
+                        options.height = 300;
+                    }
+                    if (window.innerWidth <= 500) {
+                        options.width = window.innerWidth - 50;
+                        options.height = 200;
+                    }
+                    var player = new Clappr.Player(options);
+                </script>
+    </div>
+    </div>
+</div>
+</body>
+<html> 
