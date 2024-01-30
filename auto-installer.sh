@@ -107,6 +107,7 @@ if sudo git clone https://github.com/arut/nginx-rtmp-module /usr/src/nginx-rtmp-
     sudo cp "webfiles/crossdomain.xml" "/var/www/web/crossdomain.xml"
     sudo cp "webfiles/robots.txt" "/var/www/web/robots.txt"
     sudo cp "webfiles/poster.jpg" "/var/www/web/poster.jpg"
+    sudo cp "webfiles/favicon.ico" "/var/www/web/favicon.ico"
 else
     echo "Error: Could not copy all the required files. This really sucks!! Exiting."
     exit 1
