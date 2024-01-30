@@ -28,10 +28,9 @@ export DEBIAN_FRONTEND=noninteractive
 # Temporary allow me to use sudo without having to ask my user to enter their password each time.
 echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
 
-# Updating repositories and installing apps I'm needing for the next steps. Also performing a general update.
+# Updating repositories and installing apps I'm needing for the next steps. 
 sudo apt-get update -y 
 sudo apt-get install curl dnsutils wget unzip git jq -y
-sudo apt-get upgrade -y
 
 # Validating the entered domain name and checking its IP address using the 1.1.1.1 DNS server
 DOMAIN_IP=$(dig +short @"1.1.1.1" "$DOMAIN_NAME")
