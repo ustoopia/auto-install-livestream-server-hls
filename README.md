@@ -1,9 +1,9 @@
 Hi all,
 
-I've put together this simple bash script that can be run on a clean Ubuntu 22.04 server, and when its finished, it will have transformed the server into a stable, robust live-stream server that works out-of-the-box with HLS, DASH, RTMP.
+I've put together a bash script that can run on a clean Ubuntu 22.04 server, and when its finished, it will have transformed the server into a stable, robust live-stream server that works out-of-the-box with HLS, DASH, RTMP.
 
 ![Alt text](https://i.imgur.com/ERG9hoj.png "header image")
-{apparently I'm better at sharing really useful scripts than I am at graphic banner design)
+{apparently I'm better at creating awesome scripts than I am at graphic banner design)
 
 Requirements
 
@@ -15,12 +15,11 @@ When you run the script, it asks you for a domain name and your email address. F
 
 How to run the script
 
-  cd ~ \
   git clone https://github.com/ustoopia/auto-install-livestream-server-hls \
   cd auto-installer \
   sudo bash auto-installer.sh
 
-But this also works
+But this also works:
 
 Download the zip file from the Github repository page. Unzip the file, and 
 open the folder it contains. Then simply enter: sudo bash auto-installer.sh
