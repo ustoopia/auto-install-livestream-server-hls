@@ -103,12 +103,7 @@ if sudo git clone https://github.com/arut/nginx-rtmp-module /usr/src/nginx-rtmp-
     sudo cp /usr/src/nginx-rtmp-module/stat.xsl /var/www/web/stat.xsl
 
     # Copy these files to the web root folder as well
-    sudo cp "webfiles/index.html" "/var/www/web/index.html"
-    sudo cp "webfiles/clappr.html" "/var/www/web/clappr.html"
-    sudo cp "webfiles/crossdomain.xml" "/var/www/web/crossdomain.xml"
-    sudo cp "webfiles/robots.txt" "/var/www/web/robots.txt"
-    sudo cp "webfiles/favicon.ico" "/var/www/web/favicon.ico"
-    sudo cp -r "webfiles/images/" "/var/www/web"
+    sudo cp -r "webfiles/" "/var/www/web"
 else
     echo "Error: Could not copy all the required files. This really sucks!! Exiting."
     exit 1
