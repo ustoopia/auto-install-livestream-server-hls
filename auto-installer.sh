@@ -145,4 +145,4 @@ echo "$USER ALL=(ALL) ALL" | sudo tee -a /etc/sudoers > /dev/null
 
 echo "It seems everything was successful! This means I've completed all my tasks!"
 echo "Make sure that you take a look at the included docs to familiarize yourself with the server."
-echo "It has been a real pleasure. I am outta here! Goodye."
+echo "It has been a real pleasure. I am outta here! Goodbye."
