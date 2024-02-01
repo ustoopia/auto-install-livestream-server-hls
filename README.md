@@ -3,7 +3,7 @@ Hi all,
 I've put together a bash script that can run on a clean Ubuntu 22.04 server, and when its finished, it will have transformed the server into a stable, robust live-stream server that works out-of-the-box with HLS, DASH, RTMP.
 
 ![Alt text](https://i.imgur.com/ERG9hoj.png "header image")
-{apparently I'm better at creating awesome scripts than I am at graphic banner design)
+(obviously, creating graphic media like this is not my biggest talen)
 
 Requirements
 
@@ -28,6 +28,6 @@ In case the script runs in to a fatal error, you might want to run it again in d
 
 On my personal website I posted an article that explains in detail how to get started with the live-stream server that the script built for you. Make sure you check it out before you decide to run this script. https://www.ustoopia.nl
 
-So far I haven't tried it on any other versions of Ubuntu except 22.04. I haven't tried it on any other operating systems neither, because I pretty sure that I'll have to edit the script so it will run on other distro's. Perhaps I will try to create a script that can be used on different OS;s. The script is not smart enough to handle different environments, much like the person who created the script, so you're not going to be able to run this on Windows, Mac, or other Linux flavors. This may change in at some point. Depending on when I get around to it.  
+So far I haven't tried it on anything else but just Ubuntu 22.04. In its current form it is not going to be able to correcly run on any other OS.
 
 I'm not a coder. And I used a bit of help from an AI to put this script together. In case the script contains any lines that are fundamentally wrong, or far from good, or perhaps dangerous in some way, please let me know, so I can learn. Any form of improvement of the script is of course always welcome. Personally I believe I did quite an OK job! But feel free to point out all the errors that I made and what I should do different. That way I'll learn.
