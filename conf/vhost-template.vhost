@@ -22,7 +22,7 @@ server {
         	rtmp_stat_stylesheet stat.xsl;
 		add_header Refresh "8; $request_uri";		# Refreshes the stat page every 5 seconds.
 		# auth_basic "Members Only";			# Create a valid .htpasswd before uncommenting this.
-		# auth_basic_user_file /var/www/web/.htpasswd;	# Create a valid .htpasswd before uncommenting this.
+		# auth_basic_user_file /var/www/web/.htpasswd;	# Use: htpasswd -c /var/www/web/.htpasswd username
 		}
 	location /stat.xsl {
         	root /var/www/web;
