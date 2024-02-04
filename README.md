@@ -25,7 +25,7 @@ open the folder it contains. Then simply enter: sudo bash auto-installer.sh
 
 In case the script runs in to a fatal error, you might want to run it again in debug mode. You can accomplish this by running the script like this: sudo bash your_script.sh 2>&1 | tee setup_log.txt
 
-On my personal website I posted an article that explains in detail how to get started with the live-stream server that the script built for you. Make sure you check it out before you decide to run this script. https://www.ustoopia.nl
+On my personal website I posted an article that explains in detail how to get started with the live-stream server that the script built for you. Make sure you check it out before you decide to run this script. [https://www.ustoopia.nl](https://www.ustoopia.nl/technical/use-this-script-to-automate-the-setup-of-a-live-stream-server-on-ubuntu-22-04/)
 
 So far I haven't tried it on anything else but just Ubuntu 22.04. In its current form it is not going to be able to correcly run on any other OS.
 
