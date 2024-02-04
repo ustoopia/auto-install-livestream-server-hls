@@ -1,10 +1,9 @@
-Hi all,
-
-I've put together a bash script that can run on a clean Ubuntu 22.04 server, and when its finished, it will have transformed the server into a stable, robust live-stream server that works out-of-the-box with HLS, DASH, RTMP.
-
 ![Alt text](https://i.imgur.com/ERG9hoj.png "header image")
 (obviously, creating graphic banners like this is not my biggest talent)
 
+Hi all,
+
+I've put together a bash script that can run on a clean Ubuntu 22.04 server, and when its finished, it will have transformed the server into a stable, robust live-stream server that works out-of-the-box with HLS, DASH, RTMP.
 Requirements
 
 - A fresh install Ubuntu 22.04.*
