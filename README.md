@@ -15,7 +15,7 @@ When you run the script, it asks you for a domain name and your email address. F
 How to run the script
 
   git clone https://github.com/ustoopia/auto-install-livestream-server-hls \
-  cd auto-installer \
+  cd auto-install-livestream-server-hls \
   sudo bash auto-installer.sh
 
 But this also works:
