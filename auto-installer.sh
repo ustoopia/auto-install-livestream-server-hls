@@ -114,14 +114,15 @@ sudo chown -R www-data: /var/www/web /mnt/livestream
 # Install Snap core first so we can then install Certbot
 sudo snap install core; sudo snap refresh core
 sudo snap install --classic certbot
-# Create a link to certbot so we can use it later on
-sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
 # Check if certbot command exists (indicating successful installation)
 if ! command -v certbot &> /dev/null; then
     echo "Error: Certbot was not installed properly. Exiting."
     exit 1
 fi
+
+# Create a link to certbot so we can use it later on
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
 # Time to have a little chat with the user to let hum know what I've been doing.
 echo "Setup is pretty much completed for $DOMAIN_NAME."
