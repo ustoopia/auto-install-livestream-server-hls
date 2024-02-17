@@ -81,7 +81,7 @@ sudo mkdir -p /mnt/livestream/{hls,keys,dash,rec} /var/www/web
 if sudo cp "conf/nginx.conf" "/etc/nginx/nginx.conf"; then
     echo "File copied successfully."
 else
-    echo "Error: Could not copy the file for some weird f*cked up reason. Sorry! Exiting."
+    echo "Error: Could not copy the file for some weird reason. Sorry! Exiting."
     exit 1
 fi
 
