@@ -6,7 +6,7 @@ Hi all,
 I've put together a bash script that can run on a clean Ubuntu 22.04 server, and when its finished, it will have transformed the server into a stable, robust live-stream server that works out-of-the-box with HLS, DASH, RTMP.
 Requirements
 
-- A fresh install Ubuntu 22.04.*
+- A fresh install Ubuntu 22.04 / 24.04
 - A domain name pointing to your server.
 - Reachable from the internet (ports 80 & 443)
 
