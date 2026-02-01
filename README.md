@@ -1,4 +1,6 @@
-![Alt text](https://i.imgur.com/ERG9hoj.png "header image")
+![Alt text](webfiles/images/banner.png)
+
+![Alt text]("https://raw.githubusercontent.com/ustoopia/auto-install-livestream-server-hls/refs/heads/main/webfiles/images/banner.png")
 (obviously, creating graphic banners like this is not my biggest talent)
 
 Hi all,
